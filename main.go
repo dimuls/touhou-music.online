@@ -41,6 +41,7 @@ func main() {
 
 	e.GET("/", indexHandler)
 	e.GET("/:albumSlug", albumHandler)
+	e.File("/google0c80a89b75247802.html", "static/google0c80a89b75247802.html")
 
 	e.Logger.Fatal(e.Start(":80"))
 }
