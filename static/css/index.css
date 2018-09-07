@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Courgette');
+
+window, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Courgette', cursive;
+    text-align: center;
+    background: url(/img/pattern-1.jpg) top left repeat;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.header {
+    padding: 20px;
+    margin: 0;
+    font-size: 30px;
+    background: white;
+    max-width: 400px;
+    width: 100%;
+    display: inline-block;
+    font-weight: normal;
+}
+
+.albums {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.album {
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    background: white;
+}
+.album:last-child {
+    padding-bottom: 0;
+}
+
+.cover {
+    max-width: 400px;
+    width: 100%;
+}
+
+.title {
+    text-align: center;
+    max-width: 400px;
+    margin-bottom: 10px;
+}

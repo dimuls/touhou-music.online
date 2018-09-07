@@ -1,0 +1,119 @@
+{{define "album"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Year }} - {{.Title }}</title>
+    <link rel="stylesheet" type="text/css" href="/css/album.css">
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter50256039 = new Ya.Metrika2({
+                        id:50256039,
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true,
+                        webvisor:true
+                    });
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks2");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/50256039" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+
+<div class="container">
+
+    <audio id="audio" preload="none" tabindex="0">
+        {{range .Tracks}}
+            <source src="{{.Path}}" data-track-number="{{.Number}}" />
+        {{end}}
+        Your browser does not support HTML5 audio.
+    </audio>
+
+    <div class="album-outer">
+        <a class="album" href="/#{{.Slug}}">
+            <img class="cover" src="{{.Cover}}" />
+            <h1 class="title">{{.Year}} - {{.Title}}</h1>
+        </a>
+    </div>
+
+
+    <div class="player">
+
+        <div class="large-toggle-btn">
+            <i class="large-play-btn"><span class="screen-reader-text">Large toggle button</span></i>
+        </div>
+        <!-- /.play-box -->
+
+        <div class="info-box">
+            <div class="track-info-box">
+                <div class="track-title-text"></div>
+                <div class="audio-time">
+                    <span class="current-time">00:00</span> /
+                    <span class="duration">00:00</span>
+                </div>
+            </div>
+            <!-- /.info-box -->
+
+            <div class="progress-box">
+                <div class="progress-cell">
+                    <div class="progress">
+                        <div class="progress-buffer"></div>
+                        <div class="progress-indicator"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.progress-box -->
+
+        <div class="controls-box">
+            <i class="previous-track-btn disabled"><span class="screen-reader-text">Previous track button</span></i>
+            <i class="next-track-btn"><span class="screen-reader-text">Next track button</span></i>
+        </div>
+        <!-- /.controls-box -->
+
+    </div>
+    <!-- /.player -->
+
+    <div class="play-list">
+
+        {{range .Tracks}}
+        <div class="play-list-row" data-track-row="{{.Number}}">
+            <div class="small-toggle-btn">
+                <i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i>
+            </div>
+            <div class="track-number">
+                {{.Number}}
+            </div>
+            <div class="track-title">
+                <a class="playlist-track" href="#" data-play-track="1">{{.Title}}</a>
+            </div>
+        </div>
+        {{end}}
+    </div>
+
+    <!--div>Music from the <a href="https://archive.org/details/etree"
+                            target="_blank">Live Music Archive</a></div-->
+</div>
+
+<script type="text/javascript" src="/js/album.js"></script>
+</body>
+</html>
+{{end}}
