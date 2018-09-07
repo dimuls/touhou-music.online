@@ -1,0 +1,27 @@
+# It intended to be placed at /etc/logrotate.d/touhou-music.online during deploy
+
+/var/log/touhou-music.online/*.log {
+    # Rotate logs daily.
+    daily
+
+    # Keep last 30 days.
+    rotate 180
+
+    # If the log file is missing, go on to the next one without issuing an
+    # error message.
+    missingok
+
+    # Do not rotate the log if it is empty.
+    notifempty
+
+    # Postpone compression of the previous log file to the next rotation cycle.
+    delaycompress
+
+    # Old versions of log files are compressed with gzip(1).
+    compress
+
+    # Signal rsyslog about rotation to start new log file.
+    postrotate
+            invoke-rc.d rsyslog rotate > /dev/null
+    endscript
+}
