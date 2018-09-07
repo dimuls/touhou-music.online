@@ -1,0 +1,28 @@
+[Unit]
+Description=touhou-music.online web site service
+ConditionPathExists=/home/touhou-music.online
+After=network.target
+
+[Service]
+Type=simple
+User=touhou-music-online
+Group=touhou-music-online
+
+Restart=on-failure
+RestartSec=10
+startLimitIntervalSec=60
+
+WorkingDirectory=/home/touhou-music.online
+ExecStart=/home/touhou-music.online/touhou-music.online
+
+# make sure log directory exists and owned by syslog
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /var/log/touhou-music.online
+ExecStartPre=/bin/chown syslog:adm /var/log/touhou-music.online
+ExecStartPre=/bin/chmod 755 /var/log/touhou-music.online
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=touhou-music.online
+
+[Install]
+WantedBy=multi-user.target
