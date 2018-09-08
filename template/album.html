@@ -1,12 +1,11 @@
-{{define "album"}}
-<!DOCTYPE html>
+{{define "album"}}<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Listen touhou music online. Слушай тохо
      музыку онлайн.">
     <meta name="keywords" content="touhou,music,online,тохо,музыка,онлайн">
-    <title>{{ .Year }} - {{.Title }}</title>
+    <title>{{.Album.Year}} - {{.Album.Title}}</title>
 
     <link rel="stylesheet" type="text/css" href="/css/album.css">
 
@@ -50,85 +49,49 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/50256039" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
 </head>
-<body>
+<body data-album="{{.AlbumJSON}}">
 
-<div class="container">
+<div class="album">
 
-    <audio id="audio" preload="none" tabindex="0">
-        {{range .Tracks}}
-            <source src="{{.Path}}" data-track-number="{{.Number}}" />
-        {{end}}
-        Your browser does not support HTML5 audio.
-    </audio>
+    <a class="back" href="/"><span class="arrow">&larr;</span> Back</a>
 
-    <div class="album-outer">
-        <a class="album" href="/#{{.Slug}}">
-            <img class="cover" src="{{.Cover}}" />
-            <h1 class="title">{{.Year}} - {{.Title}}</h1>
-        </a>
+    <div class="header">
+        <img class="cover" src="{{.Album.Cover}}"/>
+        <h1 class="title">{{.Album.Year}} - {{.Album.Title}}</h1>
     </div>
 
+    {{range $track := .Album.Tracks}}
 
-    <div class="player">
+        <div class="track">
 
-        <div class="large-toggle-btn">
-            <i class="large-play-btn"><span class="screen-reader-text">Large toggle button</span></i>
-        </div>
-        <!-- /.play-box -->
+            <div class="play"
+                 data-bind="click: playPause"
+                 data-track-number="{{$track.Number}}"></div>
 
-        <div class="info-box">
-            <div class="track-info-box">
-                <div class="track-title-text"></div>
-                <div class="audio-time">
-                    <span class="current-time">00:00</span> /
-                    <span class="duration">00:00</span>
-                </div>
-            </div>
-            <!-- /.info-box -->
-
-            <div class="progress-box">
-                <div class="progress-cell">
-                    <div class="progress">
-                        <div class="progress-buffer"></div>
-                        <div class="progress-indicator"></div>
-                    </div>
-                </div>
-            </div>
+            <div class="title">{{$track.Number}}. {{$track.Title}}</div>
 
         </div>
-        <!-- /.progress-box -->
 
-        <div class="controls-box">
-            <i class="previous-track-btn disabled"><span class="screen-reader-text">Previous track button</span></i>
-            <i class="next-track-btn"><span class="screen-reader-text">Next track button</span></i>
-        </div>
-        <!-- /.controls-box -->
+    {{end}}
 
-    </div>
-    <!-- /.player -->
+    <a class="back" href="/"><span class="arrow">&larr;</span> Back</a>
 
-    <div class="play-list">
-
-        {{range .Tracks}}
-        <div class="play-list-row" data-track-row="{{.Number}}">
-            <div class="small-toggle-btn">
-                <i class="small-play-btn"><span class="screen-reader-text">Small toggle button</span></i>
-            </div>
-            <div class="track-number">
-                {{.Number}}
-            </div>
-            <div class="track-title">
-                <a class="playlist-track" href="#" data-play-track="1">{{.Title}}</a>
-            </div>
-        </div>
-        {{end}}
-    </div>
-
-    <!--div>Music from the <a href="https://archive.org/details/etree"
-                            target="_blank">Live Music Archive</a></div-->
 </div>
 
-<script type="text/javascript" src="/js/album.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"
+        integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M="
+        crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.15/howler.min.js"
+        integrity="sha256-xBcR4i4ye4rtowH50D55ALv0fUWqFpS5YjHfer+rFvY="
+        crossorigin="anonymous"></script>
+
+<script src="/js/album.js"></script>
+
 </body>
 </html>
 {{end}}
