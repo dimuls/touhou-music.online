@@ -56,7 +56,7 @@
 <div class="albums">
 {{range .}}
     <a class="album" href="{{.Slug}}" name="{{.Slug}}">
-        <img class="cover" src="{{.Cover}}"/>
+        <img class="cover" src="{{.Cover}}" alt="touhou album cover"/>
         <div class="title">{{.Year}} - {{.Title}}</div>
     </a>
 {{end}}
