@@ -13,7 +13,8 @@ $(function() {
             }
             self.howl = new Howl({
                 src: [track.path],
-                onend: onEnd
+                onend: onEnd,
+                html5: true,
             });
             self.howl.play();
             self.track = track;
