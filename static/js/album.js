@@ -51,7 +51,7 @@ $(function() {
         self.player = new Player();
         self.lastElement = null;
 
-        self.playPause = function(_, event) {
+        self.playPause = function(event) {
             trackNumber = $(event.target).data("track-number");
 
             if (self.player.track !== null &&
@@ -82,7 +82,9 @@ $(function() {
             }
 
         };
+
+        $(".play").click(self.playPause);
     }
 
-    ko.applyBindings(new Album(album));
+    new Album(album);
 });
