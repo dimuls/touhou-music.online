@@ -89,17 +89,43 @@ body {
 
 @media (min-width: 768px) {
     body {
+        font-size: 30px;
+    }
+
+    .header .title {
+        font-size: 35px;
+        max-width: 500px;
+    }
+
+    .cover {
+        width: 200px;
+        height: 200px;
+    }
+
+    .track .title {
+        max-width: 600px;
+    }
+
+    .play {
+        font-size: 40px;
+        width: 65px;
+        height: 65px;
+        line-height: 65px;
+        top: -5px;
+    }
+    .play.paused {
+        line-height: 61px;
+    }
+}
+
+@media (min-width: 1440px) {
+    body {
         font-size: 20px;
     }
 
     .header .title {
         font-size: 30px;
         max-width: 400px;
-    }
-
-    .cover {
-        width: 200px;
-        height: 200px;
     }
 
     .track .title {
