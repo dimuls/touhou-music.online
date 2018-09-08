@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"html/template"
 	"io"
 	"net/http"
@@ -66,11 +67,27 @@ func indexHandler(c echo.Context) error {
 	return c.Render(http.StatusOK, "index", albums)
 }
 
+type albumHandlerData struct {
+	Album     music.Album
+	AlbumJSON string
+}
+
 func albumHandler(c echo.Context) error {
 	slug := c.Param("albumSlug")
 	album, exists := albumsMap[slug]
 	if !exists {
 		return c.String(http.StatusNotFound, "404 Not found")
 	}
-	return c.Render(http.StatusOK, "album", album)
+
+	albumJSON, err := json.Marshal(album)
+	if err != nil {
+		c.Logger().Errorf("Failed to marshal album: %v", err)
+		return c.String(http.StatusInternalServerError,
+			"500 Internal server error")
+	}
+
+	return c.Render(http.StatusOK, "album", albumHandlerData{
+		Album:     album,
+		AlbumJSON: string(albumJSON),
+	})
 }
