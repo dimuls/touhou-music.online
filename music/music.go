@@ -9,18 +9,18 @@ import (
 )
 
 type Album struct {
-	Title  string
-	Year   string
-	Slug   string
-	Cover  string
-	Path   string
-	Tracks []Track
+	Title  string  `json:"title"`
+	Year   string  `json:"year"`
+	Slug   string  `json:"slug"`
+	Cover  string  `json:"cover"`
+	Path   string  `json:"path"`
+	Tracks []Track `json:"tracks"`
 }
 
 type Track struct {
-	Number string
-	Title  string
-	Path   string
+	Number string `json:"number"`
+	Title  string `json:"title"`
+	Path   string `json:"path"`
 }
 
 func LoadAlbums() ([]Album, error) {
@@ -68,9 +68,19 @@ func LoadAlbums() ([]Album, error) {
 				continue
 			}
 
+			title := atp.Name()[11:]
+
+			extIndex := strings.Index(title, ".mp3")
+
+			if extIndex == -1 {
+				continue
+			}
+
+			title = title[:extIndex]
+
 			album.Tracks = append(album.Tracks, Track{
 				Number: (atp.Name()[1:])[:2],
-				Title:  atp.Name()[11:],
+				Title:  title,
 				Path:   "music/" + ap.Name() + "/" + atp.Name(),
 			})
 		}
