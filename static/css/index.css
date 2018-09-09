@@ -24,7 +24,12 @@ body {
 
 .albums {
     display: grid;
-    grid-template-columns: 1fr;
+}
+
+@media (min-width: 0) {
+    .albums {
+        grid-template-columns: 1fr;
+    }
 }
 
 .album {
