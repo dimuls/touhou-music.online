@@ -52,6 +52,11 @@ $(function() {
         self.player = new Player();
         self.lastElement = null;
 
+        self.togglePlayPauseIcon = function() {
+            self.lastElement.toggleClass("fa-play");
+            self.lastElement.toggleClass("fa-pause");
+        };
+
         self.playPause = function(event) {
             trackNumber = $(event.target).data("track-number");
 
@@ -60,26 +65,26 @@ $(function() {
 
                 if (self.player.isPlaying()) {
                     self.player.pause();
-                    self.lastElement.toggleClass("paused")
+                    self.togglePlayPauseIcon()
                 } else {
                     self.player.unpause();
-                    self.lastElement.toggleClass("paused")
+                    self.togglePlayPauseIcon()
                 }
 
             } else {
                 if (self.player.isPlaying()) {
-                    self.lastElement.toggleClass("paused")
+                    self.togglePlayPauseIcon()
                 }
                 self.player.play(self.tracks[trackNumber-1], function() {
                     if (self.tracks.length === trackNumber) {
-                        self.lastElement.toggleClass("paused");
+                        self.togglePlayPauseIcon();
                         return
                     }
-                    self.lastElement.toggleClass("paused");
+                    self.togglePlayPauseIcon();
                     self.lastElement.parent().next().children(".play").click()
                 });
                 self.lastElement = $(event.target);
-                self.lastElement.toggleClass("paused")
+                self.togglePlayPauseIcon();
             }
 
         };

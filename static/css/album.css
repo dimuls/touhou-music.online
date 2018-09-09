@@ -77,16 +77,6 @@ body {
     cursor: pointer;
 }
 
-.play::after {
-    content: '▶';
-}
-.play.paused {
-    line-height: 85px;
-}
-.play.paused::after {
-    content: "⏸"
-}
-
 @media (min-width: 768px) {
     body {
         font-size: 30px;
@@ -113,9 +103,6 @@ body {
         line-height: 65px;
         top: -5px;
     }
-    .play.paused {
-        line-height: 61px;
-    }
 }
 
 @media (min-width: 1440px) {
@@ -139,8 +126,5 @@ body {
         line-height: 50px;
         position: relative;
         top: -5px;
-    }
-    .play.paused {
-        line-height: 50px;
     }
 }
