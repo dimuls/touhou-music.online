@@ -11,28 +11,6 @@
         gtag('config', 'UA-125453656-1');
     </script>
 
-    <meta charset="UTF-8">
-    <meta name="description" content="Listen touhou music online. Слушай тохо
-     музыку онлайн.">
-    <meta name="keywords" content="touhou,music,online,тохо,музыка,онлайн">
-    <title>{{.Album.Year}} - {{.Album.Title}}</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-          integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
-          crossorigin="anonymous" />
-
-    <link rel="stylesheet" type="text/css" href="/css/album.css?v5">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/favicon/site.webmanifest">
-    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="/favicon/favicon.ico">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="msapplication-config" content="/favicon/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
         (function (d, w, c) {
@@ -62,12 +40,39 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/50256039" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Listen touhou music online. Слушай тохо
+     музыку онлайн.">
+    <meta name="keywords" content="touhou,music,online,тохо,музыка,онлайн">
+    <title>{{.Album.Year}} - {{.Album.Title}}</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
+          crossorigin="anonymous" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" type="text/css" href="/css/album.css?v6">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body data-album="{{.AlbumJSON}}">
 
 <div class="album">
 
-    <a class="back" href="/"><span class="arrow">&larr;</span> Back</a>
+    <div class="back">
+        <a href="/"><span class="arrow">&larr;</span> Back</a>
+    </div>
 
     <div class="header">
         <img class="cover" src="{{.Album.Cover}}" alt="touhou album cover"/>
@@ -87,7 +92,9 @@
 
     {{end}}
 
-    <a class="back" href="/"><span class="arrow">&larr;</span> Back</a>
+    <div class="back bottom">
+        <a href="/"><span class="arrow">&larr;</span> Back</a>
+    </div>
 
 </div>
 

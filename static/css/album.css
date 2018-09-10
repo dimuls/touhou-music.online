@@ -5,21 +5,34 @@ window, body {
     margin: 0;
 }
 
+html {
+    font-size: 10px;
+}
+
 body {
     background: url(/img/pattern-2.jpg) top left repeat;
     font-family: 'Courgette', cursive;
-    font-size: 40px;
+    font-size: 100%;
     text-align: center;
 }
 
 .album {
-    margin: 20px;
-    padding: 20px;
+    margin: 2em;
+    padding: 1em;
     background: white;
     display: inline-flex;
     flex-direction: column;
-    align-items: center;
     text-align: left;
+}
+
+.back {
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+}
+
+.back.bottom {
+    margin-top: 0.6em;
 }
 
 .arrow {
@@ -31,21 +44,22 @@ body {
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-content: center;
+    align-items: center;
+    margin-bottom: 0.3em;
 }
 
 .cover {
-    width: 300px;
-    height: 300px;
+    width: 10em;
+    height: 10em;
 }
 
 .header .title {
     width: 100%;
     text-align: center;
     font-weight: normal;
-    text-align: center;
     padding: 0;
-    font-size: 50px;
-    margin-left: 20px;
+    margin: 0 0 0 1em;
+    font-size: 2em;
 }
 
 .track {
@@ -53,78 +67,93 @@ body {
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-start;
+    align-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 1em;
 }
 
 .track .title {
-    margin-left: 20px;
+    margin-left: 1em;
+    font-size: 1.8em;
 }
 
 .play {
-    padding: 5px;
+    padding: 0.2em;
     border: 1px solid #d9d9d9;
-    border-radius: 2px;
-    font-size: 70px;
-    width: 100px;
-    height: 100px;
+    border-radius: 0.1em;
+    font-size: 3em;
+    width: 1.2em;
+    height: 1.2em;
+    line-height: 1.2em;
     overflow: hidden;
     text-align: center;
     vertical-align: center;
-    line-height: 100px;
     position: relative;
-    top: -5px;
+    top: -0.2em;
     cursor: pointer;
+    position: relative;
+    top: 0.01em;
 }
 
+
 @media (min-width: 768px) {
-    body {
-        font-size: 30px;
+
+    .album {
+        padding: 2em;
+        margin: 2em;
+    }
+
+    .back {
+        font-size: 3em;
+        margin-bottom: 0.3em;
+    }
+
+    .header {
+        margin-bottom: 1em;
     }
 
     .header .title {
-        font-size: 35px;
-        max-width: 500px;
+        font-size: 3.5em;
+        max-width: 14.1em;
     }
 
     .cover {
-        width: 200px;
-        height: 200px;
+        width: 21em;
+        height: 21em;
+    }
+
+    .track {
+        margin-top: 1.8em;
     }
 
     .track .title {
-        max-width: 600px;
+        font-size: 3em;
+        max-width: 20em;
+        width: 100%;
     }
 
     .play {
-        font-size: 40px;
-        width: 65px;
-        height: 65px;
-        line-height: 65px;
-        top: -5px;
+        font-size: 4.5em;
+        width: 1.2em;
+        height: 1.2em;
+        line-height: 1.2em;
     }
 }
 
 @media (min-width: 1440px) {
-    body {
-        font-size: 20px;
-    }
 
     .header .title {
-        font-size: 30px;
-        max-width: 400px;
+        font-size: 3em;
+        max-width: 12em;
     }
 
     .track .title {
-        max-width: 500px;
+        font-size: 2em;
+        max-width: 25em;
+        width: 100%;
     }
 
     .play {
-        font-size: 30px;
-        width: 50px;
-        height: 50px;
-        line-height: 50px;
-        position: relative;
-        top: -5px;
+        font-size: 4em;
     }
 }
