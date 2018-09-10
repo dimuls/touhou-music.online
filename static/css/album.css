@@ -142,6 +142,10 @@ body {
 
 @media (min-width: 1440px) {
 
+    .back {
+        font-size: 2.5em;
+    }
+
     .header {
         margin-bottom: 0;
     }
