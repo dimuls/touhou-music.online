@@ -62,6 +62,21 @@ body {
     font-size: 2em;
 }
 
+.button {
+    padding: 0.2em;
+    border: 1px solid #d9d9d9;
+    border-radius: 0.1em;
+    font-size: 3em;
+    width: 1.2em;
+    min-width: 1.2em;
+    height: 1.2em;
+    line-height: 1.2em;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: center;
+    cursor: pointer;
+}
+
 .track {
     width: 100%;
     display: flex;
@@ -78,19 +93,6 @@ body {
 }
 
 .play {
-    padding: 0.2em;
-    border: 1px solid #d9d9d9;
-    border-radius: 0.1em;
-    font-size: 3em;
-    width: 1.2em;
-    height: 1.2em;
-    line-height: 1.2em;
-    overflow: hidden;
-    text-align: center;
-    vertical-align: center;
-    position: relative;
-    top: -0.2em;
-    cursor: pointer;
     position: relative;
     top: 0.01em;
 }
@@ -132,7 +134,7 @@ body {
         width: 100%;
     }
 
-    .play {
+    .button {
         font-size: 4.5em;
         width: 1.2em;
         height: 1.2em;
@@ -161,7 +163,7 @@ body {
         width: 100%;
     }
 
-    .play {
+    .button {
         font-size: 4em;
     }
 }
