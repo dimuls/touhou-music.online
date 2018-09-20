@@ -10,7 +10,7 @@ $(function() {
         }
     });
     
-    var album = $("body").data("album");
+    var album = $('body').data('album');
 
     function Player() {
         var self = this;
@@ -64,12 +64,12 @@ $(function() {
         self.lastElement = null;
 
         self.togglePlayPauseIcon = function() {
-            self.lastElement.toggleClass("fa-play");
-            self.lastElement.toggleClass("fa-pause");
+            self.lastElement.toggleClass('fa-play');
+            self.lastElement.toggleClass('fa-pause');
         };
 
         self.playPause = function(event) {
-            trackNumber = $(event.target).data("track-number");
+            trackNumber = $(event.target).data('track-number');
 
             if (self.player.track !== null &&
                 self.player.track.number === trackNumber+'') {
@@ -92,7 +92,7 @@ $(function() {
                         return
                     }
                     self.togglePlayPauseIcon();
-                    self.lastElement.parent().next().children(".play").click()
+                    self.lastElement.parent().next().children('.play').click()
                 });
                 self.lastElement = $(event.target);
                 self.togglePlayPauseIcon();
@@ -100,7 +100,7 @@ $(function() {
 
         };
 
-        $(".play").click(self.playPause);
+        $('.play').click(self.playPause);
     }
 
     new Album(album);
