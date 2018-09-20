@@ -83,6 +83,27 @@
         <h1 class="title">{{.Album.Year}} - {{.Album.Title}}</h1>
     </div>
 
+    <div class="player">
+
+        <div class="title"></div>
+
+        <div class="controls">
+
+            <div class="play button fa fa-play"></div>
+
+            <div class="seek">
+                <div class="bar"></div>
+            </div>
+
+            <div class="backward button fa fa-step-backward"></div>
+            <div class="forward button fa fa-step-forward"></div>
+
+            <div class="random button fa fa-random"></div>
+
+        </div>
+
+    </div>
+
     {{$discsCount := len .Album.Discs}}
     {{range $disc := .Album.Discs}}
 
