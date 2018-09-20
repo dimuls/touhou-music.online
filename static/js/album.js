@@ -1,4 +1,15 @@
 $(function() {
+    
+    $('.back a').click(function(event) {
+        previousURL = document.referrer;
+        currentURL = document.location.href;
+        if (currentURL.startsWith(previousURL)) {
+            event.preventDefault();
+            event.stopPropagation();
+            history.back();
+        }
+    });
+    
     var album = $("body").data("album");
 
     function Player() {
