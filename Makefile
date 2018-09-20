@@ -1,4 +1,14 @@
 
+run:
+	# build new binary
+	go build .
+
+	# allow to use 80 port for non-root user
+	sudo setcap 'cap_net_bind_service=+ep' touhou-music.online
+	
+	# run app
+	./touhou-music.online
+
 deploy:
 	# building web service
 	go build .
