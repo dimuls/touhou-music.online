@@ -21,6 +21,8 @@ func main() {
 
 	e := echo.New()
 
+	e.Pre(middleware.NonWWWRedirect())
+
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(middleware.RemoveTrailingSlashWithConfig(middleware.TrailingSlashConfig{
