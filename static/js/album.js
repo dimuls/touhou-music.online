@@ -3,7 +3,7 @@ $(function() {
     $('.back a').click(function(event) {
         previousURL = document.referrer;
         currentURL = document.location.href;
-        if (currentURL.startsWith(previousURL)) {
+        if (previousURL && currentURL.startsWith(previousURL)) {
             event.preventDefault();
             event.stopPropagation();
             history.back();
