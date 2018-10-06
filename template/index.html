@@ -43,9 +43,7 @@
     <!-- /Yandex.Metrika counter -->
 
     <meta charset="UTF-8">
-    <meta name="description" content="Listen touhou music online. Слушай тохо
-     музыку онлайн.">
-    <meta name="keywords" content="touhou,music,online,тохо,музыка,онлайн">
+    <meta name="description" content="{{.L10n.description}}">
     <title>Touhou Music Online</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
@@ -60,20 +58,28 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="/css/index.css?v2">
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css?v3">
 
 </head>
 <body>
 
-<h1 class="header">Touhou music online</h1>
+<div class="header">
+    <h1>{{.L10n.title}}</h1>
+    <div class="lang">
+        {{range .Languages}}
+            <a {{if ne . $.Language}}href="/{{.}}"{{end}}>{{.}}</a>
+        {{end}}
+    </div>
+</div>
+
 
 <div class="albums">
-{{range .}}
-    <a class="album" href="{{.Slug}}" name="{{.Slug}}">
-        <img class="cover" src="{{.Cover}}" alt="touhou album cover"/>
-        <div class="title">{{.Year}} - {{.Title}}</div>
-    </a>
-{{end}}
+    {{range .Albums}}
+        <a class="album" href="/{{$.Language}}/{{.Slug}}">
+            <img class="cover" src="/static/{{.Cover}}" alt="touhou album cover"/>
+            <div class="title">{{.Year}} - {{.Title}}</div>
+        </a>
+    {{end}}
 </div>
 
 </body>

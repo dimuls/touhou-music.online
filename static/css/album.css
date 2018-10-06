@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Courgette');
+@import url('https://fonts.googleapis.com/css?family=Philosopher:400i&subset=cyrillic');
 
 window, body {
     padding: 0;
@@ -10,8 +10,8 @@ html {
 }
 
 body {
-    background: url(/img/pattern-2.jpg) top left repeat;
-    font-family: 'Courgette', cursive;
+    background: url(/static/img/pattern-2.jpg) top left repeat;
+    font-family: 'Philosopher', sans-serif;
     font-size: 100%;
     text-align: center;
 }
@@ -23,12 +23,20 @@ body {
     display: inline-flex;
     flex-direction: column;
     text-align: left;
+    position: relative;
 }
 
 .back {
     width: 100%;
     text-align: center;
     font-size: 2em;
+}
+
+.lang {
+    font-size: 2em;
+    position: absolute;
+    right: 0.3em;
+    top: 0.1em;
 }
 
 .back.bottom {
@@ -109,6 +117,10 @@ body {
         margin-bottom: 0.3em;
     }
 
+    .lang {
+        font-size: 3em;
+    }
+
     .header .title {
         font-size: 3.5em;
         max-width: 14.1em;
@@ -140,6 +152,10 @@ body {
 @media (min-width: 1440px) {
 
     .back {
+        font-size: 2.5em;
+    }
+
+    .lang {
         font-size: 2.5em;
     }
 

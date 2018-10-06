@@ -23,7 +23,7 @@ $(function() {
                 self.howl.stop()
             }
             self.howl = new Howl({
-                src: [track.path],
+                src: ["/static/"+track.path],
                 onend: onEnd,
                 html5: true,
             });

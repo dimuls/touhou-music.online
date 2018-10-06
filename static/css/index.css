@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Courgette');
+@import url('https://fonts.googleapis.com/css?family=Philosopher:400i&subset=cyrillic');
 
 window, body {
     margin: 0;
@@ -10,21 +10,33 @@ html {
 }
 
 body {
-    font-family: 'Courgette', cursive;
+    font-family: 'Philosopher', sans-serif;
     text-align: center;
-    background: url(/img/pattern-1.jpg) top left repeat;
+    background: url(/static/img/pattern-1.jpg) top left repeat;
     font-size: 100%;
     padding-bottom: 2em;
     padding-top: 2em;
 }
 
 .header {
-    padding: 0.5em;
-    margin: 0 0 0.5em 0;
-    font-size: 4em;
+    padding: 1em 1em 1.5em 1em;
+    margin: 0 1em 0.5em 1em;
     background: white;
-    display: inline-block;
+    position: relative;
+    font-size: 2em;
+}
+
+.header h1 {
+    margin: 0;
+    padding: 0;
     font-weight: normal;
+}
+
+.header .lang {
+    font-size: 1.5em;
+    position: absolute;
+    right: 0.3em;
+    bottom: 0.1em;
 }
 
 .albums {
@@ -61,8 +73,8 @@ body {
 }
 
 @media (min-width: 768px) {
-    .title {
-        font-size: 2.5em;
+    .header {
+        display: inline-block;
     }
     .albums {
         grid-template-columns: 1fr 1fr;
@@ -70,13 +82,10 @@ body {
 }
 
 @media (min-width: 1440px) {
-    .header {
-        font-size: 5em;
+    .header h1 {
+        font-size: 3em;
     }
     .albums {
         grid-template-columns: 1fr 1fr 1fr;
-    }
-    .title {
-        font-size: 2em;
     }
 }
