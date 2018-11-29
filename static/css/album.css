@@ -12,7 +12,6 @@ html {
 body {
     background: url(/static/img/pattern-2.jpg) top left repeat;
     font-family: 'Philosopher', sans-serif;
-    font-size: 100%;
     text-align: center;
 }
 
@@ -24,6 +23,17 @@ body {
     flex-direction: column;
     text-align: left;
     position: relative;
+}
+
+.footer {
+    display: inline-block;
+    margin: 0 2em 2em 2em;
+    padding: 1em;
+    background: white;
+}
+
+.footer > div {
+    font-size: 1.5em;
 }
 
 .back {
