@@ -116,7 +116,7 @@ func indexHandler(c echo.Context) error {
 	l10n, exists := indexPageL10n[lang]
 	if !exists {
 		// Redirect to english page if language is not supported.
-		c.Redirect(http.StatusFound, "/en")
+		return c.Redirect(http.StatusFound, "/en")
 	}
 
 	var langs []string
@@ -136,10 +136,12 @@ var albumPageL10n = map[string]map[string]string{
 	"en": {
 		"description": "Touhou music album, year %s, %s",
 		"back":        "Back",
+		"disc":        "Disc",
 	},
 	"ru": {
 		"description": "Альбом touhou музыки, год %s, %s",
 		"back":        "Назад",
+		"disc":        "Диск",
 	},
 }
 
@@ -163,7 +165,7 @@ func albumHandler(c echo.Context) error {
 	l10n, exists := albumPageL10n[lang]
 	if !exists {
 		// Redirect to english page if language is not supported.
-		c.Redirect(http.StatusFound, "/en/"+slug)
+		return c.Redirect(http.StatusFound, "/en/"+slug)
 	}
 
 	albumJSON, err := json.Marshal(album)
