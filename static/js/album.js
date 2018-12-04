@@ -16,18 +16,20 @@ $(function() {
         var self = this;
 
         self.howl = null;
+        self.diskNumber = null;
         self.track = null;
 
-        self.play = function(track, onEnd) {
+        self.play = function(diskNumner, track, onEnd) {
             if (self.howl !== null) {
                 self.howl.stop()
             }
             self.howl = new Howl({
-                src: ["/static/"+track.path],
+                src: [track.path],
                 onend: onEnd,
                 html5: true,
             });
             self.howl.play();
+            self.diskNumber = diskNumner;
             self.track = track;
         };
 
@@ -69,9 +71,11 @@ $(function() {
         };
 
         self.playPause = function(event) {
+            diskNumber = $(event.target).data('disk-number');
             trackNumber = $(event.target).data('track-number');
 
             if (self.player.track !== null &&
+                self.player.diskNumber === diskNumber &&
                 self.player.track.number === trackNumber+'') {
 
                 if (self.player.isPlaying()) {
@@ -86,14 +90,22 @@ $(function() {
                 if (self.player.isPlaying()) {
                     self.togglePlayPauseIcon()
                 }
-                self.player.play(self.tracks[trackNumber-1], function() {
-                    if (self.tracks.length === trackNumber) {
+
+                self.player.play(diskNumber,
+                    self.disks[diskNumber-1].tracks[trackNumber-1],
+                    function() {
                         self.togglePlayPauseIcon();
-                        return
+                        if (self.disks[diskNumber-1].tracks.length === trackNumber
+                            && self.disks.length === diskNumber) {
+                            return
+                        }
+                        var next = self.lastElement.parent().next();
+                        while (!next.hasClass('track')) {
+                            next = next.next()
+                        }
+                        next.children('.play').click()
                     }
-                    self.togglePlayPauseIcon();
-                    self.lastElement.parent().next().children('.play').click()
-                });
+                );
                 self.lastElement = $(event.target);
                 self.togglePlayPauseIcon();
             }
@@ -103,5 +115,5 @@ $(function() {
         $('.play').click(self.playPause);
     }
 
-    new Album(album);
+    window.app = new Album(album);
 });

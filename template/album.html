@@ -59,7 +59,7 @@
     <meta name="msapplication-config" content="/static/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="/static/css/album.css?v10">
+    <link rel="stylesheet" type="text/css" href="/static/css/album.css?v11">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -83,17 +83,26 @@
         <h1 class="title">{{.Album.Year}} - {{.Album.Title}}</h1>
     </div>
 
-    {{range $track := .Album.Tracks}}
+    {{$disksCount := len .Album.Disks}}
+    {{range $disk := .Album.Disks}}
 
-        <div class="track">
+        {{if gt $disksCount 1}}
+            <div class="disk">{{$.L10n.disc}} {{$disk.Number}}</div>
+        {{end}}
 
-            <div class="play button fa fa-play"
-                 data-track-number="{{$track.Number}}"></div>
+        {{range $track := $disk.Tracks}}
 
-            <div class="title">{{$track.Number}}. {{$track.Title}}</div>
+            <div class="track">
 
-        </div>
+                <div class="play button fa fa-play"
+                     data-disk-number="{{$disk.Number}}"
+                     data-track-number="{{$track.Number}}"></div>
 
+                <div class="title">{{$track.Number}}. {{$track.Title}}</div>
+
+            </div>
+
+        {{end}}
     {{end}}
 
 </div>
@@ -116,7 +125,7 @@
         integrity="sha256-xBcR4i4ye4rtowH50D55ALv0fUWqFpS5YjHfer+rFvY="
         crossorigin="anonymous"></script>
 
-<script src="/static/js/album.js?v7"></script>
+<script src="/static/js/album.js?v8"></script>
 
 </body>
 </html>
