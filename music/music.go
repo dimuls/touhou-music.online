@@ -3,17 +3,25 @@ package music
 import (
 	"fmt"
 	"io/ioutil"
+	"path/filepath"
 	"strings"
 
 	"github.com/gosimple/slug"
 )
 
+const musicPath = "./static/music"
+
 type Album struct {
-	Title  string  `json:"title"`
-	Year   string  `json:"year"`
-	Slug   string  `json:"slug"`
-	Cover  string  `json:"cover"`
-	Path   string  `json:"path"`
+	Title string `json:"title"`
+	Year  string `json:"year"`
+	Slug  string `json:"slug"`
+	Cover string `json:"cover"`
+	Path  string `json:"path"`
+	Disks []Disk `json:"disks"`
+}
+
+type Disk struct {
+	Number string  `json:"number"`
 	Tracks []Track `json:"tracks"`
 }
 
@@ -24,8 +32,6 @@ type Track struct {
 }
 
 func LoadAlbums() ([]Album, error) {
-
-	const musicPath = "./static/music"
 
 	albumsPaths, err := ioutil.ReadDir(musicPath)
 	if err != nil {
@@ -52,41 +58,97 @@ func LoadAlbums() ([]Album, error) {
 			Title: title,
 			Year:  year,
 			Slug:  slug.Make(year + " " + title),
-			Cover: "music/" + ap.Name() + "/cover.jpg",
-			Path:  musicPath + "/" + ap.Name(),
+			Cover: filepath.Join("music", ap.Name(), "cover.jpg"),
+			Path:  filepath.Join(musicPath, ap.Name()),
 		}
 
-		albumTracksPath, err := ioutil.ReadDir(musicPath + "/" + ap.Name())
+		disksPath, err := ioutil.ReadDir(album.Path)
 		if err != nil {
-			return nil, fmt.Errorf("failed to read `%s` album tracks",
-				musicPath+"/"+ap.Name())
+			return nil, fmt.Errorf("failed to read `%s` disks path: %v",
+				musicPath+"/"+ap.Name(), err)
 		}
 
-		for _, atp := range albumTracksPath {
+		for _, dp := range disksPath {
 
-			if atp.Name() == "cover.jpg" {
+			if !dp.IsDir() {
+				if strings.Contains(dp.Name(), ".mp3") {
+					// If we found mp3 file this means that we need to load
+					// disks path itself as disk 1.
+
+					disk, err := loadDisk(ap.Name(), "")
+					if err != nil {
+						return nil, err
+					}
+
+					disk.Number = "1"
+
+					album.Disks = append(album.Disks, disk)
+
+					break
+				}
 				continue
 			}
 
-			title := atp.Name()[11:]
-
-			extIndex := strings.Index(title, ".mp3")
-
-			if extIndex == -1 {
+			i := strings.Index(dp.Name(), "Disc")
+			if i != 0 {
 				continue
 			}
 
-			title = title[:extIndex]
+			disk, err := loadDisk(ap.Name(), dp.Name())
+			if err != nil {
+				return nil, err
+			}
 
-			album.Tracks = append(album.Tracks, Track{
-				Number: (atp.Name()[1:])[:2],
-				Title:  title,
-				Path:   "music/" + ap.Name() + "/" + atp.Name(),
-			})
+			disk.Number = dp.Name()[5:]
+
+			album.Disks = append(album.Disks, disk)
 		}
 
 		albums = append(albums, album)
 	}
 
 	return albums, nil
+}
+
+func loadDisk(albumPathName, diskPathName string) (Disk, error) {
+
+	diskBasePath := filepath.Join(musicPath, albumPathName, diskPathName)
+
+	diskTracksPath, err := ioutil.ReadDir(diskBasePath)
+	if err != nil {
+		return Disk{}, fmt.Errorf("failed to read `%s` disk tracks path: %v",
+			diskBasePath, err)
+	}
+
+	var disk Disk
+
+	for _, dtp := range diskTracksPath {
+
+		if dtp.Name() == "cover.jpg" {
+			continue
+		}
+
+		fileName := dtp.Name()
+
+		dashIndex := strings.Index(fileName, "–")
+		if dashIndex == -1 {
+			continue
+		}
+
+		extIndex := strings.Index(fileName, ".mp3")
+		if extIndex == -1 {
+			continue
+		}
+
+		number := (fileName[1:])[:2]
+		title := fileName[dashIndex+3 : extIndex]
+
+		disk.Tracks = append(disk.Tracks, Track{
+			Number: number,
+			Title:  title,
+			Path:   filepath.Join("/static/music", albumPathName, diskPathName, dtp.Name()),
+		})
+	}
+
+	return disk, nil
 }
