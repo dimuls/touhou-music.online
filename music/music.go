@@ -141,7 +141,7 @@ func loadDisk(albumPathName, diskPathName string) (Disk, error) {
 		}
 
 		number := (fileName[1:])[:2]
-		title := fileName[dashIndex+3 : extIndex]
+		title := fileName[dashIndex+4 : extIndex]
 
 		disk.Tracks = append(disk.Tracks, Track{
 			Number: number,
