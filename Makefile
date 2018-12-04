@@ -9,9 +9,16 @@ run:
 	# run app
 	./touhou-music.online
 
+run-win:
+	# build new binary
+	go build .
+
+	# run app
+	./touhou-music.online
+
 deploy:
 	# building web service
-	go build .
+	GOOS=linux GOARCH=amd64 go build .
 
 	# archiving files required for deploy
 	tar -czvf touhou-music.online.tar.gz --exclude static/music static \
@@ -23,6 +30,10 @@ deploy:
 	# extracting new files to working directory
 	ssh root@95.213.237.2 tar -C /home/touhou-music.online/ -xf \
 		/home/touhou-music.online/touhou-music.online.tar.gz
+
+	# adding execute permissions
+	ssh root@95.213.237.2 chmod +x \
+		/home/touhou-music.online/touhou-music.online
 
 	# allowing to bind port 80 for non-root user
 	ssh root@95.213.237.2 setcap 'cap_net_bind_service=+ep' \
