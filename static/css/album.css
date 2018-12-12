@@ -94,7 +94,7 @@ body {
     cursor: pointer;
 }
 
-.disk {
+.disc {
     width: 100%;
     margin-top: 1em;
     font-size: 1.8em;
@@ -151,7 +151,7 @@ body {
         height: 21em;
     }
 
-    .disk {
+    .disc {
         font-size: 3em;
     }
 
@@ -188,7 +188,7 @@ body {
         max-width: 12em;
     }
 
-    .disk {
+    .disc {
         font-size: 2.5em;
     }
 

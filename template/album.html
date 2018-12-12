@@ -83,19 +83,19 @@
         <h1 class="title">{{.Album.Year}} - {{.Album.Title}}</h1>
     </div>
 
-    {{$disksCount := len .Album.Disks}}
-    {{range $disk := .Album.Disks}}
+    {{$discsCount := len .Album.Discs}}
+    {{range $disc := .Album.Discs}}
 
-        {{if gt $disksCount 1}}
-            <div class="disk">{{$.L10n.disc}} {{$disk.Number}}</div>
+        {{if gt $discsCount 1}}
+            <div class="disc">{{$.L10n.disc}} {{$disc.Number}}</div>
         {{end}}
 
-        {{range $track := $disk.Tracks}}
+        {{range $track := $disc.Tracks}}
 
             <div class="track">
 
                 <div class="play button fa fa-play"
-                     data-disk-number="{{$disk.Number}}"
+                     data-disc-number="{{$disc.Number}}"
                      data-track-number="{{$track.Number}}"></div>
 
                 <div class="title">{{$track.Number}}. {{$track.Title}}</div>
@@ -111,6 +111,9 @@
 
 <div class="footer">
     <div>
+        Contacts
+    </div>
+    <div>
         email: <a href="mailto:dimuls@yandex.ru?Subject=touhou-music.online">dimuls@yandex.ru</a>
         telegram: <a href="https://telegram.me/dimuls">dimuls</a>
         vk.com: <a href="https://vk.com/dimuls">dimuls</a>
@@ -125,7 +128,7 @@
         integrity="sha256-xBcR4i4ye4rtowH50D55ALv0fUWqFpS5YjHfer+rFvY="
         crossorigin="anonymous"></script>
 
-<script src="/static/js/album.js?v9"></script>
+<script src="/static/js/album.js?v10"></script>
 
 </body>
 </html>

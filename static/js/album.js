@@ -16,10 +16,10 @@ $(function() {
         var self = this;
 
         self.howl = null;
-        self.diskNumber = null;
+        self.discNumber = null;
         self.track = null;
 
-        self.play = function(diskNumner, track, onEnd) {
+        self.play = function(discNumber, track, onEnd) {
             if (self.howl !== null) {
                 self.howl.stop()
             }
@@ -29,7 +29,7 @@ $(function() {
                 html5: true,
             });
             self.howl.play();
-            self.diskNumber = diskNumner;
+            self.discNumber = discNumber;
             self.track = track;
         };
 
@@ -75,11 +75,11 @@ $(function() {
         };
 
         self.playPause = function(event) {
-            diskNumber = $(event.target).data('disk-number');
+            discNumber = $(event.target).data('disc-number');
             trackNumber = $(event.target).data('track-number');
 
             if (self.player.track !== null &&
-                self.player.diskNumber === diskNumber &&
+                self.player.discNumber === discNumber &&
                 self.player.track.number === trackNumber+'') {
 
                 if (self.player.isPlaying()) {
@@ -96,18 +96,24 @@ $(function() {
                     self.toggleActiveTrack();
                 }
 
-                self.player.play(diskNumber,
-                    self.disks[diskNumber-1].tracks[trackNumber-1],
+                self.player.play(discNumber,
+                    self.discs[discNumber-1].tracks[trackNumber-1],
                     function() {
                         self.togglePlayPauseIcon();
                         self.toggleActiveTrack();
-                        if (self.disks[diskNumber-1].tracks.length === trackNumber
-                            && self.disks.length === diskNumber) {
+                        if (self.discs[discNumber-1].tracks.length === trackNumber
+                            && self.discs.length === discNumber) {
                             return
                         }
                         var next = self.lastElement.parent().next();
+                        if (next.length === 0) {
+                            return
+                        }
                         while (!next.hasClass('track')) {
-                            next = next.next()
+                            next = next.next();
+                            if (next.length === 0) {
+                                return
+                            }
                         }
                         next.children('.play').click()
                     }

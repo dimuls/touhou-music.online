@@ -17,10 +17,10 @@ type Album struct {
 	Slug  string `json:"slug"`
 	Cover string `json:"cover"`
 	Path  string `json:"path"`
-	Disks []Disk `json:"disks"`
+	Discs []Disc `json:"discs"`
 }
 
-type Disk struct {
+type Disc struct {
 	Number string  `json:"number"`
 	Tracks []Track `json:"tracks"`
 }
@@ -62,27 +62,27 @@ func LoadAlbums() ([]Album, error) {
 			Path:  filepath.Join(musicPath, ap.Name()),
 		}
 
-		disksPath, err := ioutil.ReadDir(album.Path)
+		discsPath, err := ioutil.ReadDir(album.Path)
 		if err != nil {
-			return nil, fmt.Errorf("failed to read `%s` disks path: %v",
+			return nil, fmt.Errorf("failed to read `%s` discs path: %v",
 				musicPath+"/"+ap.Name(), err)
 		}
 
-		for _, dp := range disksPath {
+		for _, dp := range discsPath {
 
 			if !dp.IsDir() {
 				if strings.Contains(dp.Name(), ".mp3") {
 					// If we found mp3 file this means that we need to load
-					// disks path itself as disk 1.
+					// discs path itself as disc 1.
 
-					disk, err := loadDisk(ap.Name(), "")
+					disc, err := loadDisc(ap.Name(), "")
 					if err != nil {
 						return nil, err
 					}
 
-					disk.Number = "1"
+					disc.Number = "1"
 
-					album.Disks = append(album.Disks, disk)
+					album.Discs = append(album.Discs, disc)
 
 					break
 				}
@@ -94,14 +94,14 @@ func LoadAlbums() ([]Album, error) {
 				continue
 			}
 
-			disk, err := loadDisk(ap.Name(), dp.Name())
+			disc, err := loadDisc(ap.Name(), dp.Name())
 			if err != nil {
 				return nil, err
 			}
 
-			disk.Number = dp.Name()[5:]
+			disc.Number = dp.Name()[5:]
 
-			album.Disks = append(album.Disks, disk)
+			album.Discs = append(album.Discs, disc)
 		}
 
 		albums = append(albums, album)
@@ -110,19 +110,19 @@ func LoadAlbums() ([]Album, error) {
 	return albums, nil
 }
 
-func loadDisk(albumPathName, diskPathName string) (Disk, error) {
+func loadDisc(albumPathName, discPathName string) (Disc, error) {
 
-	diskBasePath := filepath.Join(musicPath, albumPathName, diskPathName)
+	discBasePath := filepath.Join(musicPath, albumPathName, discPathName)
 
-	diskTracksPath, err := ioutil.ReadDir(diskBasePath)
+	discTracksPath, err := ioutil.ReadDir(discBasePath)
 	if err != nil {
-		return Disk{}, fmt.Errorf("failed to read `%s` disk tracks path: %v",
-			diskBasePath, err)
+		return Disc{}, fmt.Errorf("failed to read `%s` disc tracks path: %v",
+			discBasePath, err)
 	}
 
-	var disk Disk
+	var disc Disc
 
-	for _, dtp := range diskTracksPath {
+	for _, dtp := range discTracksPath {
 
 		if dtp.Name() == "cover.jpg" {
 			continue
@@ -143,12 +143,12 @@ func loadDisk(albumPathName, diskPathName string) (Disk, error) {
 		number := (fileName[1:])[:2]
 		title := fileName[dashIndex+4 : extIndex]
 
-		disk.Tracks = append(disk.Tracks, Track{
+		disc.Tracks = append(disc.Tracks, Track{
 			Number: number,
 			Title:  title,
-			Path:   filepath.Join("/static/music", albumPathName, diskPathName, dtp.Name()),
+			Path:   filepath.Join("/static/music", albumPathName, discPathName, dtp.Name()),
 		})
 	}
 
-	return disk, nil
+	return disc, nil
 }
