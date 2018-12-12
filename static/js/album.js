@@ -70,6 +70,10 @@ $(function() {
             self.lastElement.toggleClass('fa-pause');
         };
 
+        self.toggleActiveTrack = function() {
+            self.lastElement.parent().toggleClass('active')
+        };
+
         self.playPause = function(event) {
             diskNumber = $(event.target).data('disk-number');
             trackNumber = $(event.target).data('track-number');
@@ -80,21 +84,23 @@ $(function() {
 
                 if (self.player.isPlaying()) {
                     self.player.pause();
-                    self.togglePlayPauseIcon()
+                    self.togglePlayPauseIcon();
                 } else {
                     self.player.unpause();
-                    self.togglePlayPauseIcon()
+                    self.togglePlayPauseIcon();
                 }
 
             } else {
                 if (self.player.isPlaying()) {
-                    self.togglePlayPauseIcon()
+                    self.togglePlayPauseIcon();
+                    self.toggleActiveTrack();
                 }
 
                 self.player.play(diskNumber,
                     self.disks[diskNumber-1].tracks[trackNumber-1],
                     function() {
                         self.togglePlayPauseIcon();
+                        self.toggleActiveTrack();
                         if (self.disks[diskNumber-1].tracks.length === trackNumber
                             && self.disks.length === diskNumber) {
                             return
@@ -108,6 +114,7 @@ $(function() {
                 );
                 self.lastElement = $(event.target);
                 self.togglePlayPauseIcon();
+                self.toggleActiveTrack();
             }
 
         };

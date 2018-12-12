@@ -115,6 +115,10 @@ body {
     font-size: 1.8em;
 }
 
+.track.active .title {
+    font-weight: bold;
+}
+
 .play {
     position: relative;
     top: 0.01em;
