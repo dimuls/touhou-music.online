@@ -135,12 +135,15 @@ body {
         display: block;
         margin: 0.2em 0 0.2em 0;
         position: relative;
+        border-top: 1px solid #d9d9d9;
+        border-bottom: 1px solid #d9d9d9;
+        padding: 2em 0;
     }
 
     .player .title {
-        font-size: 3.5em;
+        font-size: 3.1em;
         max-width: 21.1em;
-        margin-bottom: 0.2em;
+        margin-bottom: 0.6em;
         margin-top: 0.1em;
     }
 
@@ -170,15 +173,13 @@ body {
     }
 
     .player .controls .seek .overlay {
-        background: #d9d9d9;
-        height: 100%;
-        width: 40%  ;
+        width: 0;
     }
 
     .player .controls .seek .button {
         background: white;
         position: relative;
-        top: -0.59em;
+        top: -0.58em;
         width: 0.2em;
         min-width: 0;
     }
@@ -242,6 +243,14 @@ body {
     .header .title {
         font-size: 3em;
         max-width: 12em;
+    }
+
+    .player .title {
+        font-size: 2.5em;
+    }
+
+    .player .controls .seek .button {
+        top: -0.56em;
     }
 
     .disc {

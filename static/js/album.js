@@ -15,17 +15,69 @@ $(function() {
     function Player() {
         var self = this;
 
+        self.titleTextEl = $('.player .title .text');
+        self.titleTimeEl = $('.player .title .time');
+
         self.howl = null;
         self.discNumber = null;
         self.track = null;
 
-        self.play = function(discNumber, track, onEnd) {
-            if (self.howl !== null) {
-                self.howl.stop()
+        self.timeUpdater = null;
+
+        self.updateTitleTime = function() {
+            if (self.howl === null) {
+                return
             }
+            var total = self.howl.duration();
+            var totalMinutes = Math.floor(total / 60);
+            var totalSeconds = ("0" +Math.round(total - totalMinutes * 60)).slice(-2);
+
+            var seek = self.howl.seek();
+            var minutes = Math.floor(seek/ 60);
+            var seconds = ("0" + Math.round(seek - minutes * 60)).slice(-2);
+
+            var time = minutes + ":" + seconds + " / "
+                + totalMinutes + ":" + totalSeconds;
+
+            self.titleTimeEl.text(time);
+        };
+
+        self.preload = function(discNumber, track, onEnd) {
+            self.titleTextEl.text(track.number + '. ' + track.title);
             self.howl = new Howl({
                 src: [track.path],
                 onend: onEnd,
+                onplay: function() {
+                    self.timeUpdater = setInterval(self.updateTitleTime, 1000);
+                },
+                onload: function() {
+                    self.updateTitleTime();
+                }
+            });
+            self.track = track;
+            self.discNumber = discNumber;
+        };
+
+        self.play = function(discNumber, track, onEnd) {
+            if (self.howl !== null) {
+                if (self.discNumber === discNumber &&
+                    self.track.number === track.number) {
+                    self.howl.play();
+                    return
+                }
+                self.howl.stop()
+            }
+            self.titleTextEl.text(track.number + '. ' + track.title);
+            self.titleTimeEl.text("");
+            self.howl = new Howl({
+                src: [track.path],
+                onend: onEnd,
+                onplay: function() {
+                    self.timeUpdater = setInterval(self.updateTitleTime, 1000);
+                },
+                onload: function() {
+                    self.updateTitleTime();
+                },
                 html5: true,
             });
             self.howl.play();
@@ -38,15 +90,18 @@ $(function() {
                 self.howl.stop();
                 self.howl = null;
                 self.track = null;
+                clearInterval(self.timeUpdater);
             }
         };
 
         self.pause = function() {
             self.howl.pause();
+            clearInterval(self.timeUpdater);
         };
 
         self.unpause = function() {
             self.howl.play();
+            self.timeUpdater = setInterval(self.updateTitleTime, 1000);
         };
 
         self.isPlaying = function() {
@@ -122,10 +177,29 @@ $(function() {
                 self.togglePlayPauseIcon();
                 self.toggleActiveTrack();
             }
-
         };
 
         $('.play').click(self.playPause);
+
+        self.player.preload(1, self.discs[0].tracks[0], function() {
+            self.togglePlayPauseIcon();
+            self.toggleActiveTrack();
+            if (self.discs[0].tracks.length === 1
+                && self.discs.length === 1) {
+                return
+            }
+            var next = self.lastElement.parent().next();
+            if (next.length === 0) {
+                return
+            }
+            while (!next.hasClass('track')) {
+                next = next.next();
+                if (next.length === 0) {
+                    return
+                }
+            }
+            next.children('.play').click()
+        });
     }
 
     window.app = new Album(album);
