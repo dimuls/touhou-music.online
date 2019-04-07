@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/dimuls/touhou-music.online/music"
@@ -51,7 +52,12 @@ func main() {
 	e.GET("/:language", indexHandler)
 	e.GET("/:language/:albumSlug", albumHandler)
 
-	e.Logger.Fatal(e.Start(":80"))
+	bindAddr := os.Getenv("BIND_ADDR")
+	if bindAddr == "" {
+		bindAddr = ":80"
+	}
+
+	e.Logger.Fatal(e.Start(bindAddr))
 }
 
 type Template struct {
